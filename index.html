@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Рандомайзер</title>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<table id="randomTable">
+</table>
+
+<button onclick="addRandomNumber()">Добавить число</button>
+
+<script>
+    const randomNumbers = Array.from({ length: 30 }, () => Math.floor(Math.random() * 100));
+    const table = document.getElementById('randomTable');
+
+    for (let i = 0; i < 6; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < 5; j++) {
+            const cell = document.createElement('td');
+            const randomNumber = randomNumbers[i * 5 + j];
+            cell.textContent = randomNumber;
+            if (randomNumber >= 50) {
+                cell.style.backgroundColor = 'orange';
+            }
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
+    }
+
+    function addRandomNumber() {
+        const newNumber = Math.floor(Math.random() * 100);
+        const newCell = document.createElement('td');
+        newCell.textContent = newNumber;
+        if (newNumber >= 50) {
+            newCell.style.backgroundColor = 'orange';
+        }
+        const lastRow = table.lastElementChild;
+        if (lastRow.children.length < 5) {
+            lastRow.appendChild(newCell);
+        } else {
+            const newRow = document.createElement('tr');
+            newRow.appendChild(newCell);
+            table.appendChild(newRow);
+        }
+    }
+</script>
+
+</body>
+</html>
